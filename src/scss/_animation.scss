@@ -1,0 +1,7 @@
+@mixin svg-link-transition {
+  transition: fill 300ms, background-color 300ms;
+}
+
+@mixin button-transition {
+  transition: color 300ms, background-color 300ms;
+}

@@ -1,0 +1,26 @@
+@import "../../../../scss/animation";
+.message_sender {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding: 26px 9px 30px 0;
+  border-top: 2px #EDEFF2 solid;
+  height: 86px;
+  margin-bottom: -30px;
+
+  input[type='text'] {
+    flex-grow: 1;
+    background: none;
+    color: #6B7A99;
+    border: none;
+    outline: none;
+  }
+
+  input::placeholder {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    color: #6B7A99;
+  }
+
+}

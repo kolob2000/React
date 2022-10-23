@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import "./scss/animation";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+
+  input[type=text]::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  input[type=text]::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-decoration,
+  input[type="text"]::-webkit-search-decoration,
+  input[type="text"]::-webkit-search-cancel-button,
+  input[type="text"]::-webkit-search-results-button,
+  input[type="text"]::-webkit-search-results-decoration {
+    display: none;
+  }
+
+  &:focus {
+    outline: 1px solid #3361FF;;
+  }
+
+  button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    fill: #C3CAD9;
+
+    &:hover {
+      fill: #3361FF;
+      color: #3361FF !important;
+    }
+  }
+}
+
+body {
+
+  background: #F7F8FA;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 20px;
+  color: #6B7A99;
+
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-height: 100vh;
+  padding-bottom: 60px;
+}
+
+.wrap {
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+.header-wrap {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 54px;
+}
+
+.logo {
+  font-size: 18px;
+  line-height: 30px;
+  color: #4D5E80;
+  text-transform: capitalize;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  align-items: stretch;
+  width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #C4C4C0;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(#ffffff, .2);
+}
+
+//TEMPORARY
+.left_sidebar {
+  width: 250px;
+  background: lighten(lightseagreen, 35);
+}
+
+.right_sidebar {
+  width: 50px;
+  background: darken(lightcyan, 10);
+}
+

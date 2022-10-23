@@ -1,0 +1,61 @@
+@import "../../../../scss/animation";
+
+.message_head {
+  display: flex;
+  align-items: flex-start;
+  height: 57px;
+  border-bottom: 1px #EDEFF2 solid;
+
+
+  button {
+
+    fill: #C3CAD9;
+    @include button-transition;
+    @include svg-link-transition;
+
+    &:hover {
+      fill: #3361FF;
+      color: #3361FF !important;
+    }
+  }
+
+  .head_calls {
+    display: flex;
+    gap: 20px;
+
+  }
+
+  .head_name {
+    display: flex;
+    justify-content: space-around;
+    flex-grow: 1;
+
+    button {
+      position: relative;
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 25px;
+      color: #6B7A99;
+
+      &:before {
+        margin: auto 0;
+        position: absolute;
+        content: '';
+        min-width: 10px;
+        left: -20px;
+        top: 0;
+        bottom: 0;
+        height: 10px;
+        background: #29CC39;
+        border-radius: 50%;
+
+      }
+    }
+  }
+
+  .head_menu {
+    display: flex;
+    gap: 15px;
+
+  }
+}

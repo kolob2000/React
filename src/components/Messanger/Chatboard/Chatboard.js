@@ -1,6 +1,40 @@
 import './chatboard.scss'
+import {useState} from "react";
+import ChatItem from "./ChatItem";
+import uuid from 'react-uuid';
 
 export default () => {
+    const [chatList, setChatLIst] = useState(
+        [
+            {
+                id: uuid(),
+                chatName: 'Анна Петрова',
+                img: '/img/AvatarImage.png',
+                status: 'online',
+                lastMessageTime: '12:45',
+                lastMessageText: 'Lorem ipsum dolor sit amet, consectetur adipisicing.'
+
+            },
+            {
+                id: uuid(),
+                chatName: 'Анна Петрова',
+                img: '/img/AvatarImage.png',
+                status: 'recently',
+                lastMessageTime: '12:45',
+                lastMessageText: 'Lorem ipsum dolor sit amet, consectetur adipisicing.'
+
+            },
+            {
+                id: uuid(),
+                chatName: 'Анна Петрова',
+                img: '/img/AvatarImage.png',
+                status: 'offline',
+                lastMessageTime: '12:45',
+                lastMessageText: 'Lorem ipsum dolor sit amet, consectetur adipisicing.'
+
+            }
+        ]
+    )
     return <div className="chats">
         <div className="search_wrapper">
             <label htmlFor="message_search">
@@ -14,62 +48,7 @@ export default () => {
 
         </div>
         <div className="chats_list">
-            <div className="chat_item">
-                <div className="chat_photo">
-                    <img src="/img/AvatarImage.png" alt="" className="chat_img"/>
-                        <div className="status_light status_online"></div>
-                </div>
-                <div className="chat_info">
-                    <div className="chat_info_top">
-                        <div className="info_status">online</div>
-                        <div className="last_message">12:45</div>
-                    </div>
-                    <p className="chat_name">name surname</p>
-                    <p className="last_message_text">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-                </div>
-            </div>
-            <div className="chat_item">
-                <div className="chat_photo">
-                    <img src="/img/AvatarImage.png" alt="" className="chat_img"/>
-                        <div className="status_light status_recently"></div>
-                </div>
-                <div className="chat_info">
-                    <div className="chat_info_top">
-                        <div className="info_status">recently</div>
-                        <div className="last_message">12:45</div>
-                    </div>
-                    <p className="chat_name">name surname</p>
-                    <p className="last_message_text">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-                </div>
-            </div>
-            <div className="chat_item">
-                <div className="chat_photo">
-                    <img src="/img/AvatarImage.png" alt="" className="chat_img"/>
-                        <div className="status_light status_online"></div>
-                </div>
-                <div className="chat_info">
-                    <div className="chat_info_top">
-                        <div className="info_status">online</div>
-                        <div className="last_message">12:45</div>
-                    </div>
-                    <p className="chat_name">name surname</p>
-                    <p className="last_message_text">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-                </div>
-            </div>
-            <div className="chat_item">
-                <div className="chat_photo">
-                    <img src="/img/AvatarImage.png" alt="" className="chat_img"/>
-                        <div className="status_light status_offline"></div>
-                </div>
-                <div className="chat_info">
-                    <div className="chat_info_top">
-                        <div className="info_status">offline</div>
-                        <div className="last_message">12:45</div>
-                    </div>
-                    <p className="chat_name">name surname</p>
-                    <p className="last_message_text">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-                </div>
-            </div>
+            {chatList.map(item => <ChatItem key={item.id} chatItem={item}/>)}
         </div>
         <div className="chat_menu">
             <button className="chat_menu__item">

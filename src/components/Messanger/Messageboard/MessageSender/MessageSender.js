@@ -1,8 +1,10 @@
 import styles from './messagesender.module.scss'
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 export default ({setMessages, messages, messageListRef}) => {
     const [value, setValue] = useState('')
+    const inputRef = useRef(null)
+    useEffect(() => inputRef.current?.focus(), [])
 
     function sendMessage() {
         if (value.length) {
@@ -13,13 +15,14 @@ export default ({setMessages, messages, messageListRef}) => {
                 body: value.toString(),
                 time: (new Date()).toLocaleTimeString('ru', {hour: '2-digit', minute: '2-digit'})
             }])
+            setValue('')
+            inputRef.current?.focus()
         }
     }
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             sendMessage()
-            setValue('')
         }
     }
 
@@ -39,7 +42,8 @@ export default ({setMessages, messages, messageListRef}) => {
                       fill=""/>
             </svg>
         </button>
-        <input type="text" placeholder="Сообщение" onKeyDown={handleKeyDown} onChange={(e) => setValue(e.target.value)}
+        <input ref={inputRef} type="text" placeholder="Сообщение" onKeyDown={handleKeyDown}
+               onChange={(e) => setValue(e.target.value)}
                value={value}/>
         <button onClick={sendMessage}>
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="">

@@ -31,7 +31,8 @@
   }
 
   &:focus {
-    outline: 1px solid #3361FF;;
+    outline: none;
+    //outline: 1px solid #3361FF;
   }
 
   button {
@@ -116,5 +117,23 @@ body {
 .right_sidebar {
   width: 50px;
   background: darken(lightcyan, 10);
+}
+
+.layout {
+  display: flex;
+  align-items: stretch;
+  flex-grow: 1;
+  margin-left: 60px;
+  margin-right: 41px;
+  background: #FFFFFF;
+  box-shadow: 0px 30px 60px rgba(38, 51, 77, 0.03);
+  border-radius: 20px;
+}
+
+.active {
+  color: #3361FF !important
+}
+a{
+  text-decoration: none;
 }
 

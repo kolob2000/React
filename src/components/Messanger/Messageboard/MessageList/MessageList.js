@@ -1,8 +1,12 @@
 import styles from './messagelist.module.scss'
 import {useContext, useEffect, useRef} from "react";
-import {CurrentUserIdContext} from "../../../../App";
+import {CurrentUserIdContext, ChatContext} from "../../../../Context";
+import {useParams} from "react-router-dom";
 
 export default (props) => {
+    const {chatID} = useParams()
+    const {chatList} = useContext(ChatContext)
+    const messages = chatList[chatID].messages
     const messageListRef = useRef(null)
     const currentUserId = useContext(CurrentUserIdContext)
     useEffect(() => {
@@ -10,7 +14,7 @@ export default (props) => {
     })
     return <div className={styles.message_list_wrap}>
         <div className={styles.message_list} ref={messageListRef}>
-            {props.messages.map((message, index) => {
+            {messages.map((message, index) => {
                 return <div
                     className={currentUserId === message.userId ? styles.message_item : styles.message_item + " " + styles.message_item_response}
                     key={index}>

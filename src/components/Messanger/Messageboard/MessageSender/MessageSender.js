@@ -1,20 +1,43 @@
 import styles from './messagesender.module.scss'
-import {useEffect, useRef, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
+import {useParams} from "react-router-dom";
+import {ChatContext} from "../../../../Context";
 
-export default ({setMessages, messages, messageListRef}) => {
+export default ({messageListRef}) => {
     const [value, setValue] = useState('')
     const inputRef = useRef(null)
     useEffect(() => inputRef.current?.focus(), [])
+    const {chatList, setChatList} = useContext(ChatContext)
+    const {chatID} = useParams()
 
     function sendMessage() {
         if (value.length) {
-            setMessages(prev => [...prev, {
-                userId: 1,
-                image: "/img/AvatarImage.png",
-                name: 'Мария Иванова',
-                body: value.toString(),
-                time: (new Date()).toLocaleTimeString('ru', {hour: '2-digit', minute: '2-digit'})
-            }])
+            setChatList(prev => {
+                return (
+                    {
+                        ...prev,
+                        [chatID]: {
+                            chatName: 'Анна Верищагина',
+                            img: '/img/AvatarImage.png',
+                            status: 'online',
+                            messages: [...chatList[chatID].messages, {
+                                userId: 1,
+                                image: "/img/AvatarImage.png",
+                                name: 'Мария Иванова',
+                                body: value.toString(),
+                                time: (new Date()).toLocaleTimeString('ru', {hour: '2-digit', minute: '2-digit'})
+                            }],
+                            get lastMessageTime() {
+                                return this.messages[this.messages.length - 1].time
+                            },
+                            get lastMessageText() {
+                                return this.messages[this.messages.length - 1].body
+                            },
+                        }
+                    }
+                )
+            })
+
             setValue('')
             inputRef.current?.focus()
         }

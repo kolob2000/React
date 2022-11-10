@@ -59,7 +59,7 @@
       min-height: 100px;
       @include button-transition;
 
-      &:hover {
+      &:hover, &:active {
         background: #3361FF;
       }
 
@@ -67,6 +67,8 @@
         color: #FFFFFF !important;
 
       }
+
+
 
       &:hover .last_message, &:hover .info_status {
         color: #FFFFFF !important;

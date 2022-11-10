@@ -1,8 +1,9 @@
 import {useState} from "react";
+import {NavLink} from "react-router-dom";
 
-export default ({chatItem}) => {
+export default ({chatItem, roomId}) => {
 
-    return <div className="chat_item">
+    return <NavLink to={`/messanger/${roomId}`} className="chat_item">
         <div className="chat_photo">
             <img src={chatItem.img} alt="" className="chat_img"/>
             <div className={`status_light status_${chatItem.status}`}></div>
@@ -15,5 +16,5 @@ export default ({chatItem}) => {
             <p className="chat_name">{chatItem.chatName}</p>
             <p className="last_message_text">{chatItem.lastMessageText}</p>
         </div>
-    </div>
+    </NavLink>
 }

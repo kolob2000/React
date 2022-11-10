@@ -1,40 +1,42 @@
 import './chatboard.scss'
-import {useState} from "react";
+import {useState, useContext} from "react";
 import ChatItem from "./ChatItem";
 import uuid from 'react-uuid';
+import {ChatContext} from "../../../Context";
 
 export default () => {
-    const [chatList, setChatLIst] = useState(
-        [
-            {
-                id: uuid(),
-                chatName: 'Анна Петрова',
-                img: '/img/AvatarImage.png',
-                status: 'online',
-                lastMessageTime: '12:45',
-                lastMessageText: 'Lorem ipsum dolor sit amet, consectetur adipisicing.'
-
-            },
-            {
-                id: uuid(),
-                chatName: 'Анна Петрова',
-                img: '/img/AvatarImage.png',
-                status: 'recently',
-                lastMessageTime: '12:45',
-                lastMessageText: 'Lorem ipsum dolor sit amet, consectetur adipisicing.'
-
-            },
-            {
-                id: uuid(),
-                chatName: 'Анна Петрова',
-                img: '/img/AvatarImage.png',
-                status: 'offline',
-                lastMessageTime: '12:45',
-                lastMessageText: 'Lorem ipsum dolor sit amet, consectetur adipisicing.'
-
-            }
-        ]
-    )
+    // const [chatList, setChatLIst] = useState(
+    //     [
+    //         {
+    //             id: uuid(),
+    //             chatName: 'Анна Петрова',
+    //             img: '/img/AvatarImage.png',
+    //             status: 'online',
+    //             lastMessageTime: '12:45',
+    //             lastMessageText: 'Lorem ipsum dolor sit amet, consectetur adipisicing.'
+    //
+    //         },
+    //         {
+    //             id: uuid(),
+    //             chatName: 'Анна Петрова',
+    //             img: '/img/AvatarImage.png',
+    //             status: 'recently',
+    //             lastMessageTime: '12:45',
+    //             lastMessageText: 'Lorem ipsum dolor sit amet, consectetur adipisicing.'
+    //
+    //         },
+    //         {
+    //             id: uuid(),
+    //             chatName: 'Анна Петрова',
+    //             img: '/img/AvatarImage.png',
+    //             status: 'offline',
+    //             lastMessageTime: '12:45',
+    //             lastMessageText: 'Lorem ipsum dolor sit amet, consectetur adipisicing.'
+    //
+    //         }
+    //     ]
+    // )
+    const {chatList} = useContext(ChatContext)
     return <div className="chats">
         <div className="search_wrapper">
             <label htmlFor="message_search">
@@ -48,7 +50,7 @@ export default () => {
 
         </div>
         <div className="chats_list">
-            {chatList.map(item => <ChatItem key={item.id} chatItem={item}/>)}
+            {Object.entries(chatList).map(item => <ChatItem key={item[0]} roomId={item[0]} chatItem={item[1]}/>)}
         </div>
         <div className="chat_menu">
             <button className="chat_menu__item">

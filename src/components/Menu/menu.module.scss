@@ -1,0 +1,22 @@
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  list-style: none;
+
+  a {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 25px;
+    color: #6B7A99;
+    text-decoration: none;
+    transition: color 300ms;
+
+    &:hover {
+      color: #3361FF;
+    }
+    &:focus{
+      outline: none;
+    }
+  }
+}

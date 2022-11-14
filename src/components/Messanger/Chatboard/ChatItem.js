@@ -1,17 +1,51 @@
-import {useContext, useRef} from "react";
+import {useContext, useEffect, useRef} from "react";
 import {NavLink, useNavigate, useParams} from "react-router-dom";
 import style from './chatboard.scss'
 import {ChatContext} from "../../../Context";
 
 
 export default ({chatItem, roomId}) => {
+
     const contexMenuRef = useRef(null)
+    const listener = e => {
+        if (e.target !== contexMenuRef.current && !contexMenuRef.current?.classList.contains('hidden')) {
+            contexMenuRef.current?.classList.toggle('hidden')
+            document.removeEventListener('click', listener)
+            document.removeEventListener('contextmenu', listener)
+        }
+    }
     const {chatList, setChatList} = useContext(ChatContext)
     const {chatID} = useParams()
     const navigate = useNavigate()
+    useEffect(() => {
+        return () => {
+            document.removeEventListener('click', listener)
+            document.removeEventListener('contextmenu', listener)
+        }
+    })
     const handleContext = e => {
         e?.preventDefault()
-        contexMenuRef.current?.classList.toggle('hidden')
+        e?.stopPropagation()
+
+
+        if (!contexMenuRef.current?.classList.contains('hidden')) {
+            const listener = e => {
+                if (e.target !== contexMenuRef.current && contexMenuRef.current?.classList.contains('hidden')) {
+                    contexMenuRef.current?.classList.toggle('hidden')
+                    document.removeEventListener('click', listener)
+                }
+            }
+            contexMenuRef.current?.classList.toggle('hidden')
+            document.removeEventListener('click', listener)
+            document.removeEventListener('contextmenu', listener)
+
+
+        } else {
+            contexMenuRef.current?.classList.toggle('hidden')
+            document.addEventListener('click', listener)
+            document.addEventListener('contextmenu', listener)
+
+        }
     }
     const handleDeleteClick = e => {
         e.preventDefault()

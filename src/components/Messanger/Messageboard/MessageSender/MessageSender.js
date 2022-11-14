@@ -1,6 +1,6 @@
 import styles from './messagesender.module.scss'
 import {useContext, useEffect, useRef, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {ChatContext} from "../../../../Context";
 
 export default ({messageListRef}) => {
@@ -9,8 +9,16 @@ export default ({messageListRef}) => {
     useEffect(() => inputRef.current?.focus(), [])
     const {chatList, setChatList} = useContext(ChatContext)
     const {chatID} = useParams()
+    const navigate = useNavigate()
+
 
     function sendMessage() {
+
+        if (!chatList[chatID])
+        {
+            navigate('/messanger')
+            return ''
+        }
         if (value.length) {
             setChatList(prev => {
                 return (

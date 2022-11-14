@@ -4,15 +4,16 @@ import MessageList from "./MessageList/MessageList";
 import MessageSender from "./MessageSender/MessageSender";
 import {useContext, useEffect, useState} from "react";
 import {ChatContext, CurrentUserIdContext} from "../../../Context";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 export default () => {
     const currentUserId = useContext(CurrentUserIdContext)
     const {chatID} = useParams()
     const {chatList, setChatList} = useContext(ChatContext)
+    const navigate = useNavigate()
     useEffect(() => {
         let timerId
-        if (chatList[chatID].messages.length && currentUserId === chatList[chatID].messages[chatList[chatID].messages.length - 1].userId) {
+        if (chatList[chatID]?.messages.length && currentUserId === chatList[chatID].messages[chatList[chatID].messages.length - 1].userId) {
             timerId = setTimeout(() => {
                 setChatList(prev => {
                     return (
@@ -44,9 +45,13 @@ export default () => {
         }
         return () => clearInterval(timerId)
     }, [chatList[chatID]?.messages])
+    if (!chatList[chatID]) {
+        navigate('/messanger')
+        return ''
+    }
     return <div className={styles.message}>
         <MessageHead/>
-        <MessageList />
+        <MessageList/>
         <MessageSender/>
     </div>
 }

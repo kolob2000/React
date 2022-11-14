@@ -6,7 +6,7 @@ import {useParams} from "react-router-dom";
 export default (props) => {
     const {chatID} = useParams()
     const {chatList} = useContext(ChatContext)
-    const messages = chatList[chatID].messages
+    const messages = chatList[chatID]?.messages
     const messageListRef = useRef(null)
     const currentUserId = useContext(CurrentUserIdContext)
     useEffect(() => {

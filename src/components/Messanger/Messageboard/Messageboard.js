@@ -7,7 +7,6 @@ import {ChatContext, CurrentUserIdContext} from "../../../Context";
 import {useParams} from "react-router-dom";
 
 export default () => {
-    const [messages, setMessages] = useState([])
     const currentUserId = useContext(CurrentUserIdContext)
     const {chatID} = useParams()
     const {chatList, setChatList} = useContext(ChatContext)
@@ -44,10 +43,10 @@ export default () => {
             }, 2000)
         }
         return () => clearInterval(timerId)
-    }, [chatList[chatID].messages])
+    }, [chatList[chatID]?.messages])
     return <div className={styles.message}>
         <MessageHead/>
-        <MessageList messages={messages}/>
+        <MessageList />
         <MessageSender/>
     </div>
 }

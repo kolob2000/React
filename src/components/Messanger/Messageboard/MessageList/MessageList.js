@@ -14,7 +14,7 @@ export default (props) => {
     })
     return <div className={styles.message_list_wrap}>
         <div className={styles.message_list} ref={messageListRef}>
-            {messages.map((message, index) => {
+            {messages && messages.map((message, index) => {
                 return <div
                     className={currentUserId === message.userId ? styles.message_item : styles.message_item + " " + styles.message_item_response}
                     key={index}>

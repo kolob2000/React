@@ -19,6 +19,12 @@ export const ChatListContext = ({children}) => {
             status: 'online',
             messages: []
         },
+        room3: {
+            chatName: 'Люда Петрова',
+            img: '/img/AvatarImage.png',
+            status: 'online',
+            messages: []
+        },
 
 
     })

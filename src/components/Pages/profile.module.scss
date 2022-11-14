@@ -1,0 +1,43 @@
+.wrap {
+  align-items: center;
+  flex-direction: column;
+  padding-top: 50px;
+}
+
+.profile-photo {
+  margin-top: 20px;
+  padding: 10px;
+  display: block;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+
+  border: 2px solid #3361FF;
+
+}
+
+.text-name, .about-heading {
+  margin-top: 40px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 30px;
+  text-align: center;
+  color: #6B7A99;
+}
+
+.email {
+  margin-top: 5px;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 25px;
+  text-align: center;
+  color: #ADB8CC;
+}
+.about-heading{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.about{
+  width: 50%;
+  text-align: justify;
+}

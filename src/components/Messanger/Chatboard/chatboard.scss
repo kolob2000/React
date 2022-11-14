@@ -176,6 +176,17 @@
 
     }
   }
+  .context-menu{
+    position: absolute;
+    &:hover, &:active{
+      fill: #fff;
+    }
+
+
+    z-index: 1;
+    right: 10px;
+    top: 10px;
+  }
 
   .chat_menu {
     display: flex;

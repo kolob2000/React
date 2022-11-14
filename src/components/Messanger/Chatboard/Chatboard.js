@@ -1,42 +1,24 @@
 import './chatboard.scss'
-import {useState, useContext} from "react";
+import {useState, useContext, useEffect} from "react";
 import ChatItem from "./ChatItem";
 import uuid from 'react-uuid';
 import {ChatContext} from "../../../Context";
 
 export default () => {
-    // const [chatList, setChatLIst] = useState(
-    //     [
-    //         {
-    //             id: uuid(),
-    //             chatName: 'Анна Петрова',
-    //             img: '/img/AvatarImage.png',
-    //             status: 'online',
-    //             lastMessageTime: '12:45',
-    //             lastMessageText: 'Lorem ipsum dolor sit amet, consectetur adipisicing.'
-    //
-    //         },
-    //         {
-    //             id: uuid(),
-    //             chatName: 'Анна Петрова',
-    //             img: '/img/AvatarImage.png',
-    //             status: 'recently',
-    //             lastMessageTime: '12:45',
-    //             lastMessageText: 'Lorem ipsum dolor sit amet, consectetur adipisicing.'
-    //
-    //         },
-    //         {
-    //             id: uuid(),
-    //             chatName: 'Анна Петрова',
-    //             img: '/img/AvatarImage.png',
-    //             status: 'offline',
-    //             lastMessageTime: '12:45',
-    //             lastMessageText: 'Lorem ipsum dolor sit amet, consectetur adipisicing.'
-    //
-    //         }
-    //     ]
-    // )
-    const {chatList} = useContext(ChatContext)
+    const {chatList, setChatList} = useContext(ChatContext)
+    const handleAddChat = () => {
+        const room = {
+            [uuid()]: {
+                chatName: 'Анна Верищагина',
+                img: '/img/AvatarImage.png',
+                status: 'online',
+                messages: [],
+            }
+        }
+        setChatList(prev => {
+            return {...prev, ...room}
+        })
+    }
     return <div className="chats">
         <div className="search_wrapper">
             <label htmlFor="message_search">
@@ -53,14 +35,14 @@ export default () => {
             {Object.entries(chatList).map(item => <ChatItem key={item[0]} roomId={item[0]} chatItem={item[1]}/>)}
         </div>
         <div className="chat_menu">
-            <button className="chat_menu__item">
+            <button className="chat_menu__item" >
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="14" viewBox="0 0 22 14" fill="">
                     <path fillRule="evenodd" clipRule="evenodd"
                           d="M15 6C16.66 6 17.99 4.66 17.99 3C17.99 1.34 16.66 0 15 0C13.34 0 12 1.34 12 3C12 4.66 13.34 6 15 6ZM7 6C8.66 6 9.99 4.66 9.99 3C9.99 1.34 8.66 0 7 0C5.34 0 4 1.34 4 3C4 4.66 5.34 6 7 6ZM7 8C4.67 8 0 9.17 0 11.5V13C0 13.55 0.45 14 1 14H13C13.55 14 14 13.55 14 13V11.5C14 9.17 9.33 8 7 8ZM15 8C14.71 8 14.38 8.02 14.03 8.05C14.05 8.06 14.06 8.08 14.07 8.09C15.21 8.92 16 10.03 16 11.5V13C16 13.35 15.93 13.69 15.82 14H21C21.55 14 22 13.55 22 13V11.5C22 9.17 17.33 8 15 8Z"
                           fill=""/>
                 </svg>
             </button>
-            <button className="chat_menu__item">
+            <button className="chat_menu__item" onClick={handleAddChat}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="">
                     <path fillRule="evenodd" clipRule="evenodd"
                           d="M18 0H2C0.9 0 0.01 0.9 0.01 2L0 20L4 16H18C19.1 16 20 15.1 20 14V2C20 0.9 19.1 0 18 0ZM15 12H5C4.45 12 4 11.55 4 11C4 10.45 4.45 10 5 10H15C15.55 10 16 10.45 16 11C16 11.55 15.55 12 15 12ZM15 9H5C4.45 9 4 8.55 4 8C4 7.45 4.45 7 5 7H15C15.55 7 16 7.45 16 8C16 8.55 15.55 9 15 9ZM15 6H5C4.45 6 4 5.55 4 5C4 4.45 4.45 4 5 4H15C15.55 4 16 4.45 16 5C16 5.55 15.55 6 15 6Z"

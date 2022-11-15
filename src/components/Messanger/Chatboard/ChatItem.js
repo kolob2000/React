@@ -6,8 +6,11 @@ import {ChatContext} from "../../../Context";
 
 export default ({chatItem, roomId}) => {
     const contexMenuRef = useRef(null)
+    const {chatList, setChatList} = useContext(ChatContext)
+    const {chatID} = useParams()
+    const navigate = useNavigate()
     const listener = e => {
-        console.log(contexMenuRef)
+        console.log(e.target)
         if (e.target !== contexMenuRef.current && !contexMenuRef.current?.classList.contains('hidden')
         ) {
             contexMenuRef.current?.classList.toggle('hidden')
@@ -19,9 +22,7 @@ export default ({chatItem, roomId}) => {
 
 
     }
-    const {chatList, setChatList} = useContext(ChatContext)
-    const {chatID} = useParams()
-    const navigate = useNavigate()
+
     useEffect(() => {
         return () => {
             if (!contexMenuRef.current?.classList.contains('hidden')) {
@@ -52,11 +53,8 @@ export default ({chatItem, roomId}) => {
     }
     const handleDeleteClick = e => {
         e.preventDefault()
-        setChatList(prev => {
-            const chatList = {...prev}
-            delete chatList[roomId]
-            return chatList
-        })
+        setChatList(prev => (roomId => ({[roomId]: _, ...rest}) => rest)(roomId)(prev)
+        )
 
         chatID && chatID === roomId && navigate('/messanger')
 

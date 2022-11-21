@@ -1,12 +1,12 @@
 import styles from './messagelist.module.scss'
 import {useContext, useEffect, useRef} from "react";
-import {CurrentUserIdContext, ChatContext} from "../../../../Context";
+import {CurrentUserIdContext} from "../../../../Context";
 import {useParams} from "react-router-dom";
+import {useMessagesByRoomIdSelector} from "../../../../app/chatListSelectors";
 
-export default (props) => {
+export default () => {
     const {chatID} = useParams()
-    const {chatList} = useContext(ChatContext)
-    const messages = chatList[chatID]?.messages
+    const messages = useMessagesByRoomIdSelector(chatID)
     const messageListRef = useRef(null)
     const currentUserId = useContext(CurrentUserIdContext)
     useEffect(() => {

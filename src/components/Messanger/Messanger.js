@@ -3,7 +3,6 @@ import './Chatboard/Chatboard'
 import Chatboard from "./Chatboard/Chatboard";
 import Messageboard from "./Messageboard/Messageboard";
 import {Route, Routes} from "react-router-dom";
-import {useContext} from "react";
 
 
 export default () => {
@@ -12,7 +11,6 @@ export default () => {
 
     return <div className={styles.messenger}>
         <Routes>
-
             <Route path='/' element={<><Chatboard/><PickUpChat/></>}/>
             <Route path=':chatID' element={<><Chatboard/><Messageboard/></>}/>
 

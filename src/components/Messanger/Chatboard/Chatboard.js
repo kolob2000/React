@@ -1,23 +1,16 @@
 import './chatboard.scss'
-import {useState, useContext, useEffect} from "react";
 import ChatItem from "./ChatItem";
-import uuid from 'react-uuid';
-import {ChatContext} from "../../../Context";
+import { useDispatch} from "react-redux";
+import {addChat} from "../../../app/chatReducer";
+import {useChatListSelector} from "../../../app/chatListSelectors";
+
 
 export default () => {
-    const {chatList, setChatList} = useContext(ChatContext)
+    const chatList = useChatListSelector()
+    const dispatch = useDispatch()
     const handleAddChat = () => {
-        const room = {
-            [uuid()]: {
-                chatName: 'Анна Верищагина',
-                img: '/img/AvatarImage.png',
-                status: 'online',
-                messages: [],
-            }
-        }
-        setChatList(prev => {
-            return {...prev, ...room}
-        })
+        dispatch(addChat())
+
     }
     return <div className="chats">
         <div className="search_wrapper">

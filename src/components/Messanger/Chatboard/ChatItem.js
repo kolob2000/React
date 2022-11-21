@@ -1,14 +1,15 @@
-import {useContext, useEffect, useRef} from "react";
+import { useEffect, useRef} from "react";
 import {NavLink, useNavigate, useParams} from "react-router-dom";
 import style from './chatboard.scss'
-import {ChatContext} from "../../../Context";
+import {useDispatch} from "react-redux";
+import {removeChat} from "../../../app/chatReducer";
 
 
 export default ({chatItem, roomId}) => {
     const contexMenuRef = useRef(null)
-    const {chatList, setChatList} = useContext(ChatContext)
     const {chatID} = useParams()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const listener = e => {
         console.log(e.target)
         if (e.target !== contexMenuRef.current && !contexMenuRef.current?.classList.contains('hidden')
@@ -53,9 +54,7 @@ export default ({chatItem, roomId}) => {
     }
     const handleDeleteClick = e => {
         e.preventDefault()
-        setChatList(prev => (roomId => ({[roomId]: _, ...rest}) => rest)(roomId)(prev)
-        )
-
+        dispatch(removeChat({chatID}))
         chatID && chatID === roomId && navigate('/messanger')
 
 

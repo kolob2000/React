@@ -4,6 +4,7 @@ export const profilerSlice = createSlice
 ({
     name: 'profiler',
     initialState: {
+        id: 1,
         name: '',
         img: '/img/ProfileImage.png',
         value: true

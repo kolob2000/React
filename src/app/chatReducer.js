@@ -15,17 +15,37 @@ export const chatSlice = createSlice(
 
         },
         reducers: {
-            addChat: state => {
-                const room = {
-                    [uuid()]: {
-                        chatName: 'Анна Верищагина',
-                        img: '/img/AvatarImage.png',
-                        status: 'online',
-                        messages: [],
+            addChat: {
+                reducer(state, action) {
+                    // console.log(action)
+                    // const room = {
+                    //     [uuid()]: {
+                    //         chatName: 'Анна Верищагина',
+                    //         img: '/img/AvatarImage.png',
+                    //         status: 'online',
+                    //         messages: [],
+                    //
+                    //     }
+                    // }
+                    console.log(action.payload)
+                    return state = {...state, ...action.payload}
 
+                },
+                prepare(chatName, email) {
+                    return {
+                        payload: {
+                            [uuid()]: {
+                                chatName,
+                                email,
+                                img: '/img/AvatarImage.png',
+                                status: 'online',
+                                messages: [],
+
+                            }
+                        }
                     }
                 }
-                return state = {...state, ...room}
+
             },
             removeChat: (state, action) => {
 

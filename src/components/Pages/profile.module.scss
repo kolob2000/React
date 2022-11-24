@@ -16,14 +16,48 @@
 
 }
 
+.name-area {
+
+  margin: 40px 0 15px 35px;
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
+}
+
+.edit-name__input {
+  border: none;
+  border-bottom: 1px solid #EDEFF2;
+  color: #6B7A99;
+  padding: 7px 7px;
+
+  &::placeholder {
+    padding-left: 25%;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    color: #6B7A99;
+  }
+}
+
+.save-name__button {
+  fill: #29CC39;
+}
+
 .text-name, .about-heading {
-  margin-top: 40px;
+
   font-weight: 700;
   font-size: 16px;
   line-height: 30px;
   text-align: center;
   color: #6B7A99;
 }
+
+.about-heading {
+  margin-top: 40px;
+
+}
+
 
 .email {
   margin-top: 5px;
@@ -33,11 +67,13 @@
   text-align: center;
   color: #ADB8CC;
 }
-.about-heading{
+
+.about-heading {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.about{
+
+.about {
   width: 50%;
   text-align: justify;
 }

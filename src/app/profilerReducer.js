@@ -5,16 +5,24 @@ export const profilerSlice = createSlice
     name: 'profiler',
     initialState: {
         id: 1,
-        name: '',
+        name: 'Анна Иванова',
         img: '/img/ProfileImage.png',
+        email: 'mail@gmail.com',
         value: true
     },
     reducers: {
-        changeCheckBox: state => {
+        editName: state => {
+            state.value = !state.value
+        },
+        changeName: (state, action) => {
+            console.log(action)
+            if (action.payload.length) {
+                state.name = action.payload
+            }
             state.value = !state.value
         }
     }
 })
 
-export const {changeCheckBox} = profilerSlice.actions
+export const {changeName, editName} = profilerSlice.actions
 export default profilerSlice.reducer

@@ -4,7 +4,7 @@
   display: flex;
   max-width: 300px;
   flex-direction: column;
-  border-radius: 20px 0px 0px 20px;
+  border-radius: 20px 0 0 20px;
   margin: 33px 0 30px;
 
   .search_wrapper {
@@ -15,7 +15,6 @@
     width: 240px;
     border-bottom: 2px solid #F5F6F7;
     padding-bottom: 32px;
-
 
 
   }
@@ -39,12 +38,14 @@
 
 
   }
-.chat_list_wrapper{
-  flex-grow: 1;
-  position: relative;
-  overflow: hidden;
-  overflow-y: scroll;
-}
+
+  .chat_list_wrapper {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+
   .chats_list {
     position: absolute;
     display: flex;
@@ -71,7 +72,6 @@
         color: #FFFFFF !important;
 
       }
-
 
 
       &:hover .last_message, &:hover .info_status {
@@ -180,17 +180,21 @@
 
     }
   }
-  .context-menu{
+
+  .context-menu {
     position: absolute;
-    &:hover, &:active{
+
+    &:hover, &:active {
       fill: #fff;
     }
+
     z-index: 1;
     right: 10px;
     top: 10px;
   }
-  .background-menu{
-    position:absolute;
+
+  .background-menu {
+    position: absolute;
     background: rgba(14, 13, 13, 0.76);
 
     height: max-content;
@@ -223,6 +227,82 @@
 
     }
 
+
+  }
+}
+
+.add_chat {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 50px;
+  gap: 15px;
+
+
+  h3 {
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 33px;
+    text-align: center;
+    color: #6B7A99;
+  }
+
+  input[type="text"], input[type="email"] {
+    appearance: none;
+    border: none;
+    border-bottom: 2px solid #EDEFF2;
+    color: #6B7A99;
+    font-size: 14px;
+    line-height: 22px;
+    padding: 10px 15px;
+
+    &::placeholder {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 22px;
+      color: lighten(#6B7A99, 20%);
+    }
+  }
+
+  .buttons {
+    display: flex;
+    align-self: flex-end;
+    gap: 10px;
+
+    button {
+      padding: 12px 24px;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+    }
+
+    #create-chat {
+      background: #FAFBFC;
+      color: #3361FF;
+      border: 2px solid #3361FF;
+      transition: .3s ease-in-out;
+
+      &:hover {
+        background: darken(#3361FF, 5%);
+        color: #FAFBFC !important;
+      }
+    }
+
+
+    #cancel {
+      color: #FAFBFC;
+      background: #3361FF;
+      border: 2px solid #3361FF;
+
+      transition: .3s ease-in-out;
+
+
+      &:hover {
+        background: darken(#3361FF, 10%);
+        color: #FAFBFC !important;
+        border: 2px solid #3361FF;
+      }
+    }
 
   }
 }

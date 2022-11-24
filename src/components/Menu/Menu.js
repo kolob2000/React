@@ -8,7 +8,6 @@ export default () => {
             <li><NavLink to='/messanger'>Чат</NavLink></li>
             <li><NavLink to='/profile'>Профиль</NavLink></li>
             <li><NavLink to='/about'>О нас</NavLink></li>
-
         </ul>
     </>
 }

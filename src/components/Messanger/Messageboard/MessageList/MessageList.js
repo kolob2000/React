@@ -1,14 +1,14 @@
 import styles from './messagelist.module.scss'
-import {useContext, useEffect, useRef} from "react";
-import {CurrentUserIdContext} from "../../../../Context";
+import {useEffect, useRef} from "react";
 import {useParams} from "react-router-dom";
 import {useMessagesByRoomIdSelector} from "../../../../app/chatListSelectors";
+import {useProfilerSelector} from "../../../../app/profilerSelectors";
 
-export default () => {
+const MessageList = () => {
     const {chatID} = useParams()
     const messages = useMessagesByRoomIdSelector(chatID)
     const messageListRef = useRef(null)
-    const currentUserId = useContext(CurrentUserIdContext)
+    const currentUser = useProfilerSelector()
     useEffect(() => {
         messageListRef.current?.scrollTo(0, messageListRef.current?.scrollHeight)
     })
@@ -16,7 +16,7 @@ export default () => {
         <div className={styles.message_list} ref={messageListRef}>
             {messages && messages.map((message, index) => {
                 return <div
-                    className={currentUserId === message.userId ? styles.message_item : styles.message_item + " " + styles.message_item_response}
+                    className={currentUser.id === message.userId ? styles.message_item : styles.message_item + " " + styles.message_item_response}
                     key={index}>
                     <div className={styles.message_avatar}>
                         <img src={message.image} alt=""/>
@@ -33,3 +33,5 @@ export default () => {
         </div>
     </div>
 }
+
+export default MessageList

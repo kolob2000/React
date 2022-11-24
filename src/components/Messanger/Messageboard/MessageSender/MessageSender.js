@@ -4,23 +4,23 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {addMessage} from "../../../../app/chatReducer";
 import {useChatListSelector} from "../../../../app/chatListSelectors";
-import {useCurrentUserIDSelector} from "../../../../app/profilerSelectors";
+import {useProfilerSelector} from "../../../../app/profilerSelectors";
 
 export default () => {
-    const currentUserId = useCurrentUserIDSelector()
+    const currentUser = useProfilerSelector()
     const [value, setValue] = useState('')
     const inputRef = useRef(null)
     const chatList = useChatListSelector()
-    useEffect(() => inputRef.current?.focus(), [])
+    useEffect(() => inputRef.current?.focus())
     const dispatch = useDispatch()
     const {chatID} = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
             let timerID
-            if (chatList[chatID]?.messages.length && currentUserId === chatList[chatID].messages[chatList[chatID].messages.length - 1].userId) {
+            if (chatList[chatID]?.messages.length && currentUser.id === chatList[chatID].messages[chatList[chatID].messages.length - 1].userId) {
                 timerID = setTimeout(() => {
-                    sendMessage(2, 'Привет! Я бот. Может поболтаем??))')
+                    sendMessage(2, `Привет! Я ${chatList[chatID].chatName}. Может поболтаем??))`)
                 }, 2000)
 
             }
@@ -37,20 +37,20 @@ export default () => {
         if (text.length) {
             const message = {
                 userId: user,
-                image: currentUserId === user ? "/img/AvatarImage.png" : "/img/bot.png",
-                name: 'Мария Иванова',
+                image: currentUser.id === user ? "/img/AvatarImage.png" : "/img/bot.png",
+                name: currentUser.id === user ? currentUser.name : chatList[chatID].chatName,
                 body: text.toString(),
                 time: (new Date()).toLocaleTimeString('ru', {hour: '2-digit', minute: '2-digit'})
             }
             dispatch(addMessage({chatID, message}))
 
-            if (user === currentUserId) setValue('')
+            if (user === currentUser.id) setValue('')
         }
     }
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-            sendMessage(currentUserId, value)
+            sendMessage(currentUser.id, value)
         }
     }
 
@@ -73,7 +73,7 @@ export default () => {
         <input ref={inputRef} type="text" placeholder="Сообщение" onKeyDown={handleKeyDown}
                onChange={(e) => setValue(e.target.value)}
                value={value}/>
-        <button onClick={() => sendMessage(currentUserId, value)}>
+        <button onClick={() => sendMessage(currentUser.id, value)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="">
                 <path fillRule="evenodd" clipRule="evenodd"
                       d="M6.4 23.8849L23.85 16.4049C24.66 16.0549 24.66 14.9149 23.85 14.5649L6.4 7.08488C5.74 6.79488 5.01 7.28488 5.01 7.99488L5 12.6049C5 13.1049 5.37 13.5349 5.87 13.5949L20 15.4849L5.87 17.3649C5.37 17.4349 5 17.8649 5 18.3649L5.01 22.9749C5.01 23.6849 5.74 24.1749 6.4 23.8849Z"

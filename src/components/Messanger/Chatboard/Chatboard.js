@@ -1,15 +1,25 @@
 import './chatboard.scss'
 import ChatItem from "./ChatItem";
-import { useDispatch} from "react-redux";
+import {useDispatch} from "react-redux";
 import {addChat} from "../../../app/chatReducer";
 import {useChatListSelector} from "../../../app/chatListSelectors";
+import {Dialog} from "@mui/material";
+import {useState} from "react";
 
 
 export default () => {
     const chatList = useChatListSelector()
     const dispatch = useDispatch()
-    const handleAddChat = () => {
-        dispatch(addChat())
+    const [chatForm, setChatForm] = useState({
+        chatName: '',
+        email: ''
+    })
+    const [dialogClose, setDialogClose] = useState(false)
+    const handleAddChat = e => {
+        e?.preventDefault()
+        dispatch(addChat(chatForm.chatName, chatForm.email))
+
+        setDialogClose(prev => !prev)
 
     }
     return <div className="chats">
@@ -38,7 +48,7 @@ export default () => {
                           fill=""/>
                 </svg>
             </button>
-            <button className="chat_menu__item" onClick={handleAddChat}>
+            <button className="chat_menu__item" onClick={() => setDialogClose(prev => !prev)}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="">
                     <path fillRule="evenodd" clipRule="evenodd"
                           d="M18 0H2C0.9 0 0.01 0.9 0.01 2L0 20L4 16H18C19.1 16 20 15.1 20 14V2C20 0.9 19.1 0 18 0ZM15 12H5C4.45 12 4 11.55 4 11C4 10.45 4.45 10 5 10H15C15.55 10 16 10.45 16 11C16 11.55 15.55 12 15 12ZM15 9H5C4.45 9 4 8.55 4 8C4 7.45 4.45 7 5 7H15C15.55 7 16 7.45 16 8C16 8.55 15.55 9 15 9ZM15 6H5C4.45 6 4 5.55 4 5C4 4.45 4.45 4 5 4H15C15.55 4 16 4.45 16 5C16 5.55 15.55 6 15 6Z"
@@ -60,5 +70,28 @@ export default () => {
                 </svg>
             </button>
         </div>
+        <Dialog open={dialogClose}>
+            <form className="add_chat" onSubmit={handleAddChat}>
+                <h3>Введите название чата и электронную почту пользователя</h3>
+                <input type="text"
+                       placeholder={"Введите имя..."}
+                       required={true}
+                       name='chatName'
+                       value={chatForm.chatName}
+                       onChange={e => setChatForm(prev => ({...prev, [e.target.name]: e.target.value}))}
+                />
+                <input type="email"
+                       placeholder={"Введите электронную почту..."}
+                       required={true}
+                       name='email'
+                       value={chatForm.email}
+                       onChange={e => setChatForm(prev => ({...prev, [e.target.name]: e.target.value}))}
+                />
+                <div className="buttons">
+                    <button id={'create-chat'} type={"submit"}>Создать</button>
+                    <button id={'cancel'} type={"button"} onClick={() => setDialogClose(prev => !prev)}>Отмена</button>
+                </div>
+            </form>
+        </Dialog>
     </div>
 }

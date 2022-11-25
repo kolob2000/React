@@ -2,11 +2,11 @@ import styles from './messagesender.module.scss'
 import {useEffect, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {addMessage} from "../../../../app/chatReducer";
 import {useChatListSelector} from "../../../../app/chatListSelectors";
 import {useProfilerSelector} from "../../../../app/profilerSelectors";
+import {sendMessageWithThunk} from "../../../../app/thunks/thunks";
 
-export default () => {
+const MessageSender = () => {
     const currentUser = useProfilerSelector()
     const [value, setValue] = useState('')
     const inputRef = useRef(null)
@@ -16,18 +16,6 @@ export default () => {
     const {chatID} = useParams()
     const navigate = useNavigate()
 
-    useEffect(() => {
-            let timerID
-            if (chatList[chatID]?.messages.length && currentUser.id === chatList[chatID].messages[chatList[chatID].messages.length - 1].userId) {
-                timerID = setTimeout(() => {
-                    sendMessage(2, `Привет! Я ${chatList[chatID].chatName}. Может поболтаем??))`)
-                }, 2000)
-
-            }
-
-            return () => clearTimeout(timerID)
-        },
-        [chatList[chatID]?.messages])
 
     function sendMessage(user, text) {
         if (!chatList[chatID]) {
@@ -42,7 +30,7 @@ export default () => {
                 body: text.toString(),
                 time: (new Date()).toLocaleTimeString('ru', {hour: '2-digit', minute: '2-digit'})
             }
-            dispatch(addMessage({chatID, message}))
+            dispatch(sendMessageWithThunk(chatID, message))
 
             if (user === currentUser.id) setValue('')
         }
@@ -84,3 +72,4 @@ export default () => {
 
 
 }
+export default MessageSender

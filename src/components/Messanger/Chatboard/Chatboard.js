@@ -7,7 +7,7 @@ import {Dialog} from "@mui/material";
 import {useState} from "react";
 
 
-export default () => {
+const Chatboard = () => {
     const chatList = useChatListSelector()
     const dispatch = useDispatch()
     const [chatForm, setChatForm] = useState({
@@ -36,8 +36,11 @@ export default () => {
         </div>
         <div className="chat_list_wrapper">
             <div className="chats_list">
-                {Object.entries(chatList).reverse().map(item => <ChatItem key={item[0]} roomId={item[0]}
-                                                                          chatItem={item[1]}/>)}
+                {Object.entries(chatList).reverse().map(item => {
+                    if (item[0] !== 'delay') {
+                        return <ChatItem key={item[0]} roomId={item[0]} chatItem={item[1]}/>
+                    }
+                })}
             </div>
         </div>
         <div className="chat_menu">
@@ -95,3 +98,4 @@ export default () => {
         </Dialog>
     </div>
 }
+export default Chatboard

@@ -6,28 +6,14 @@ export const chatSlice = createSlice(
     {
         name: 'chat',
         initialState: {
-            room3: {
-                chatName: 'Анна Верищагина',
-                img: '/img/AvatarImage.png',
-                status: 'online',
-                messages: [],
-            },
-
+            delay: false,
         },
         reducers: {
+            setDelay: state => {
+                state.delay = !state.delay
+            },
             addChat: {
                 reducer(state, action) {
-                    // console.log(action)
-                    // const room = {
-                    //     [uuid()]: {
-                    //         chatName: 'Анна Верищагина',
-                    //         img: '/img/AvatarImage.png',
-                    //         status: 'online',
-                    //         messages: [],
-                    //
-                    //     }
-                    // }
-                    console.log(action.payload)
                     return state = {...state, ...action.payload}
 
                 },
@@ -61,5 +47,5 @@ export const chatSlice = createSlice(
         }
     }
 )
-export const {addChat, removeChat, addMessage} = chatSlice.actions
+export const {addChat, removeChat, addMessage, setDelay} = chatSlice.actions
 export default chatSlice.reducer

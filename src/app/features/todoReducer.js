@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {deleteTodoThunk, fetchTodosThunk} from "./thunks";
+import {completeTodoThunk, deleteTodoThunk, fetchTodosThunk} from "./thunks";
 
 const todoSlice = createSlice({
     name: 'todos',
@@ -9,6 +9,8 @@ const todoSlice = createSlice({
         status: null,
         deleteError: null,
         deleteStatus: null,
+        completeError: null,
+        completeStatus: null,
 
     },
     reducers: {
@@ -36,17 +38,22 @@ const todoSlice = createSlice({
             state.status = 'rejected'
             state.error = action.payload
         })
-           //delete todo
+            //delete todo
             .addCase(deleteTodoThunk.pending, (state, action) => {
-            state.deleteStatus = 'pending'
-            state.deleteError = null
-        }).addCase(deleteTodoThunk.fulfilled, (state, action) => {
+                state.deleteStatus = 'pending'
+                state.deleteError = null
+            }).addCase(deleteTodoThunk.fulfilled, (state, action) => {
             state.deleteStatus = 'fulfilled'
             console.log(action.payload)
         }).addCase(deleteTodoThunk.rejected, (state, action) => {
             state.deleteStatus = 'rejected'
             state.deleteError = action.payload
         })
+            //complete todo
+            .addCase(completeTodoThunk.rejected, (state, action) => {
+                state.completeStatus = 'rejected'
+                state.completeError = action.payload
+            })
 
 
     }

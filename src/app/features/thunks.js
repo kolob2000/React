@@ -36,7 +36,7 @@ export const deleteTodoThunk = createAsyncThunk(
 )
 
 export const completeTodoThunk = createAsyncThunk(
-    'todos/',
+    'todos/completeTodoThunk',
     async (data, thunkAPI) => {
         try {
             const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${data.id}`, {

@@ -1,12 +1,12 @@
 import TodoItem from "./TodoItem";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {fetchTodos} from "../../app/features/thunks";
+import {fetchTodosThunk} from "../../app/features/thunks";
 
 const TodoList = () => {
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(fetchTodos())
+        dispatch(fetchTodosThunk())
     }, [dispatch])
     const todos = useSelector(state => state.todos.todos)
     const {status, error} = useSelector(state => state.todos)
@@ -16,7 +16,7 @@ const TodoList = () => {
         {status === 'pending' && <>...Загрузка</>}
         {error && <div><h1> Произошла ошибка: {error}</h1>
             <button style={{background: '#ccc', padding: '10px 10px', color: 'black', borderRadius: '5px', marginTop:'10px'}}
-                    onClick={() => dispatch(fetchTodos())}>Повторить
+                    onClick={() => dispatch(fetchTodosThunk())}>Повторить
                 запрос
             </button>
         </div>}

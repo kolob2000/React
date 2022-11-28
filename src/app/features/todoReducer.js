@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {fetchTodos} from "./thunks";
+import {deleteTodoThunk, fetchTodosThunk} from "./thunks";
 
 const todoSlice = createSlice({
     name: 'todos',
@@ -7,6 +7,9 @@ const todoSlice = createSlice({
         todos: [],
         error: null,
         status: null,
+        deleteError: null,
+        deleteStatus: null,
+
     },
     reducers: {
         removeTodo: (state, action) => {
@@ -22,22 +25,30 @@ const todoSlice = createSlice({
             }
         }
     },
-    extraReducers: {
-        [fetchTodos.pending]: (state, action) => {
+    extraReducers: (builder) => {
+        builder.addCase(fetchTodosThunk.pending, (state, action) => {
             state.status = 'pending'
             state.error = null
-
-        },
-        [fetchTodos.fulfilled]: (state, action) => {
+        }).addCase(fetchTodosThunk.fulfilled, (state, action) => {
             state.status = 'fulfilled'
             state.todos = action.payload
-
-        },
-        [fetchTodos.rejected]: (state, action) => {
+        }).addCase(fetchTodosThunk.rejected, (state, action) => {
             state.status = 'rejected'
             state.error = action.payload
+        })
+           //delete todo
+            .addCase(deleteTodoThunk.pending, (state, action) => {
+            state.deleteStatus = 'pending'
+            state.deleteError = null
+        }).addCase(deleteTodoThunk.fulfilled, (state, action) => {
+            state.deleteStatus = 'fulfilled'
+            console.log(action.payload)
+        }).addCase(deleteTodoThunk.rejected, (state, action) => {
+            state.deleteStatus = 'rejected'
+            state.deleteError = action.payload
+        })
 
-        },
+
     }
 })
 

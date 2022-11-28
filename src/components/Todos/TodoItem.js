@@ -1,15 +1,17 @@
 import style from './todoitem.module.scss'
 import {useDispatch} from "react-redux";
 import {removeTodo, setCompleted} from "../../app/features/todoReducer";
+import {completeTodoThunk, deleteTodoThunk} from "../../app/features/thunks";
 
 const TodoItem = ({index, todo}) => {
     const dispatch = useDispatch()
 
     const handleComplete = () => {
-        dispatch(setCompleted(todo.id))
+        dispatch(completeTodoThunk({id: todo.id, completed: todo.completed}))
     }
     const handleDelete = () => {
-        dispatch(removeTodo(todo.id))
+        dispatch(deleteTodoThunk(todo.id))
+        // dispatch(removeTodo(todo.id))
     }
     return <div className={style.todoItem}>
         <span>{index + 1}</span>

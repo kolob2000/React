@@ -28,6 +28,7 @@ import {
     REGISTER,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import todoReducer from "./features/todoReducer";
 
 const persistConfig = {
     key: 'root',
@@ -36,7 +37,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     profiler: profilerReducer,
-    chatList: chatReducer
+    chatList: chatReducer,
+    todos: todoReducer,
 })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

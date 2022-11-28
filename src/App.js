@@ -7,6 +7,7 @@ import Main from "./components/Pages/Main";
 import PageNotFound from "./components/Pages/PageNotFound";
 import {CurrentUserIdContext, ChatListContext} from "./Context";
 import store from './app/index'
+import Todos from "./components/Pages/Todos";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
                             <Route path='/messanger/*' element={<Messenger/>}/>
                             <Route path='/profile' element={<Profile/>}/>
                             <Route path='/about' element={<About/>}/>
+                            <Route path='/todo' element={<Todos/>}/>
                             <Route path='*' element={<PageNotFound/>}/>
                         </Routes>
                         <div className="right_sidebar">

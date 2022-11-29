@@ -1,7 +1,7 @@
 import style from './todoitem.module.scss'
 import {useDispatch} from "react-redux";
-import {removeTodo, setCompleted} from "../../app/features/todoReducer";
-import {completeTodoThunk, deleteTodoThunk} from "../../app/features/thunks";
+import {removeTodo, setCompleted} from "../../app/features/Todo/todoReducer";
+import {completeTodoThunk, deleteTodoThunk} from "../../app/features/Todo/thunks";
 
 const TodoItem = ({index, todo}) => {
     const dispatch = useDispatch()

@@ -246,7 +246,7 @@
     color: #6B7A99;
   }
 
-  input[type="text"], input[type="email"] {
+  input[type="text"], input[type="email"], input[type="password"] {
     appearance: none;
     border: none;
     border-bottom: 2px solid #EDEFF2;
@@ -254,6 +254,7 @@
     font-size: 14px;
     line-height: 22px;
     padding: 10px 15px;
+    background: #E8F0FE;
 
     &::placeholder {
       font-weight: 500;

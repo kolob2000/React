@@ -1,7 +1,7 @@
 import TodoItem from "./TodoItem";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {fetchTodosThunk} from "../../app/features/thunks";
+import {fetchTodosThunk} from "../../app/features/Todo/thunks";
 
 const TodoList = () => {
     const dispatch = useDispatch()

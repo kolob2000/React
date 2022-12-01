@@ -112,7 +112,6 @@ body {
 }
 
 
-
 .layout {
   display: flex;
   align-items: stretch;
@@ -132,4 +131,29 @@ a {
 
 .hidden {
   display: none;
+}
+
+.logout, .login {
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #FAFBFC;
+  background: #3361FF;
+  border: 2px solid #3361FF;
+
+  transition: .3s ease-in-out;
+
+
+  &:hover {
+    background: darken(#3361FF, 10%);
+    color: #FAFBFC !important;
+    border: 2px solid #3361FF;
+  }
+}
+.login{
+  display: flex;
+  justify-content: center;
+  width: 105px;
 }

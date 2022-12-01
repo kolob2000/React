@@ -6,6 +6,7 @@ import {
     signInWithEmailAndPassword,
 } from 'firebase/auth'
 import { app } from '../../../firebase'
+import { createProfile } from '../../profilerReducer'
 
 const auth = getAuth(app)
 export const fetchRegThunk = createAsyncThunk(
@@ -18,8 +19,11 @@ export const fetchRegThunk = createAsyncThunk(
                 credentials.password
             )
             await sendEmailVerification(auth.currentUser)
-            const { email, uid } = userCredentials.user
-            return { email, uid }
+            console.log(userCredentials.user, 'from registrations')
+            const { email, uid, emailVerified } = userCredentials.user
+            console.log('before dispatch')
+            thunkAPI.dispatch(createProfile({ uid, email }))
+            return { email, uid, emailVerified, isAuth: true }
         } catch (e) {
             console.log(e.message)
             console.dir(e)
@@ -37,8 +41,9 @@ export const fetchLoginThunk = createAsyncThunk(
                 credentials.email,
                 credentials.password
             )
-            const { email, uid } = userCredentials.user
-            return { email, uid }
+            console.log(userCredentials.user, 'from login')
+            const { email, uid, emailVerified } = userCredentials.user
+            return { email, uid, emailVerified, isAuth: true }
         } catch (e) {
             return thunkAPI.rejectWithValue(e.message)
         }

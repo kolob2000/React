@@ -1,17 +1,16 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
-export const profilerSlice = createSlice
-({
+export const profilerSlice = createSlice({
     name: 'profiler',
     initialState: {
-        id: 1,
-        name: 'Анна Иванова',
+        uid: '',
+        name: 'edit name',
         img: '/img/ProfileImage.png',
-        email: 'mail@gmail.com',
-        value: true
+        email: '',
+        value: true,
     },
     reducers: {
-        editName: state => {
+        editName: (state) => {
             state.value = !state.value
         },
         changeName: (state, action) => {
@@ -20,9 +19,14 @@ export const profilerSlice = createSlice
                 state.name = action.payload
             }
             state.value = !state.value
-        }
-    }
+        },
+        createProfile: (state, action) => {
+            console.log('before dispatch')
+            console.log(action.payload)
+            return { ...state, ...action.payload }
+        },
+    },
 })
 
-export const {changeName, editName} = profilerSlice.actions
+export const { changeName, editName, createProfile } = profilerSlice.actions
 export default profilerSlice.reducer

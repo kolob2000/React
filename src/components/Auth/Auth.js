@@ -6,6 +6,13 @@ import { fetchLoginThunk, fetchRegThunk } from '../../app/features/Auth/thunks'
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
 import { setAuth } from '../../app/features/Auth/authReducer'
 import { useLocation } from 'react-router-dom'
+import {
+    onAuthInit,
+    signInThunk,
+    signupThunk,
+} from '../../app/features/Auth/middleware'
+import { onInitProfile } from '../../app/features/Profiler/middleware/middleware'
+import { onChatListInit } from '../../app/features/Chat/middleware/middleware'
 
 const Auth = () => {
     const auth = getAuth()
@@ -38,11 +45,11 @@ const Auth = () => {
         name = name ?? e.nativeEvent?.submitter.name
         const { email, password } = input
         if (name === 'signin') {
-            console.log('signin')
-            dispatch(fetchLoginThunk({ email, password }))
+            // dispatch(fetchLoginThunk({ email, password }))
+            dispatch(signInThunk({ email, password }))
         } else if (name === 'signup') {
-            console.log('signup')
-            dispatch(fetchRegThunk({ email, password }))
+            dispatch(signupThunk({ email, password }))
+            // dispatch(fetchRegThunk({ email, password }))
         }
     }
 
@@ -52,6 +59,8 @@ const Auth = () => {
                 const { email, uid, emailVerified } = user
                 const userData = { email, uid, emailVerified, isAuth: true }
                 dispatch(setAuth(userData))
+                dispatch(onInitProfile(uid))
+                dispatch(onChatListInit(uid))
             } else {
                 const userData = {
                     email: null,
@@ -60,14 +69,14 @@ const Auth = () => {
                     isAuth: null,
                 }
                 dispatch(setAuth(userData))
+                localStorage.clear()
             }
         })
     }, [])
     const location = useLocation()
-    console.log(location)
     return (
         <>
-            {location.pathname !== '/' && (
+            {location.pathname !== '/' && location.pathname !== '/about' && (
                 <Dialog
                     open={!(isAuth && isEmailVerified)}
                     className={style.dialog}

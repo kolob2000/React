@@ -3,6 +3,15 @@ import { useSelector } from 'react-redux'
 
 export default () => {
     const name = useSelector((state) => state.profiler.name)
+    const handleFullScreen = () => {
+        if (document.fullscreenElement) {
+            document.exitFullscreen().catch((e) => console.log(e?.message))
+        } else {
+            document.documentElement
+                .requestFullscreen()
+                .catch((e) => console.log(e?.message))
+        }
+    }
     return (
         <div className={styles.message_head}>
             <div className={styles.head_calls}>
@@ -46,7 +55,7 @@ export default () => {
                 </button>
             </div>
             <div className={styles.head_menu}>
-                <button>
+                <button onClick={handleFullScreen}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="12"

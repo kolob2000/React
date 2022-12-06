@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { fetchLoginThunk, fetchRegThunk } from './thunks'
-import { useDispatch } from 'react-redux'
 
 const initialState = {
     email: null,

@@ -64,6 +64,22 @@
       min-height: 100px;
       @include button-transition;
 
+      &.active {
+        background: #3361FF;
+        border: none;
+
+        .chat_name {
+          color: #ffffff !important;
+
+        }
+
+
+      }
+
+      &.active:after {
+        width: 0;
+      }
+
       &:hover, &:active {
         background: #3361FF;
       }
@@ -72,7 +88,6 @@
         color: #FFFFFF !important;
 
       }
-
 
       &:hover .last_message, &:hover .info_status {
         color: #FFFFFF !important;
@@ -106,6 +121,7 @@
         position: relative;
 
         .chat_img {
+          width: 45px;
           border-radius: 50%;
         }
 
@@ -307,3 +323,5 @@
 
   }
 }
+
+

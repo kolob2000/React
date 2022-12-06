@@ -14,8 +14,8 @@
 ///////////////////////////////////////////////////
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import profilerReducer from '../app/profilerReducer'
-import chatReducer from '../app/chatReducer'
+import profilerReducer from './features/Profiler/profilerReducer'
+import chatReducer from './features/Chat/chatReducer'
 import { logger } from './middleware/middleware'
 import {
     persistStore,

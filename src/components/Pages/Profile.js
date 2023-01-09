@@ -10,6 +10,7 @@ import {
     changeNameWithFirebase,
     editNameWithFirebase,
 } from '../../app/features/Profiler/middleware/middleware'
+import Avatar from '../Profile/Avatar'
 
 export default () => {
     const dispatch = useDispatch()
@@ -29,11 +30,10 @@ export default () => {
         if (e.key === 'Enter') await handleSaveName()
     }
     useEffect(() => inputNameRef.current?.focus(), [profiler.value])
-
     return (
         <div className={'layout ' + style.wrap}>
             <h1>Мой профиль</h1>
-            <img src={profiler.img} alt="" className={style['profile-photo']} />
+            <Avatar />
             <div className={style['name-area']}>
                 {profiler.value ? (
                     <>

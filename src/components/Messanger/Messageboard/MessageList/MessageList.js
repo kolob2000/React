@@ -4,10 +4,11 @@ import { useParams } from 'react-router-dom'
 import { useMessagesByRoomIdSelector } from '../../../../app/features/Chat/chatListSelectors'
 import { useProfilerSelector } from '../../../../app/features/Profiler/profilerSelectors'
 import { onMessagesInit } from '../../../../app/features/Chat/middleware/middleware'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const MessageList = () => {
     const { chatID } = useParams()
+    const chatsAvatar = useSelector((state) => state.avatars)
     const messages = useMessagesByRoomIdSelector(chatID)
     const messageListRef = useRef(null)
     const currentUser = useProfilerSelector()
@@ -38,7 +39,14 @@ const MessageList = () => {
                                 key={index}
                             >
                                 <div className={styles.message_avatar}>
-                                    <img src={message.image} alt="" />
+                                    <img
+                                        src={
+                                            currentUser.uid !== message.uid
+                                                ? chatsAvatar[message.uid]
+                                                : currentUser.img
+                                        }
+                                        alt=""
+                                    />
                                 </div>
                                 <div className={styles.message_body}>
                                     <div className={styles.message_info}>

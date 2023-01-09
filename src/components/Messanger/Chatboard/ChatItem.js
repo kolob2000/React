@@ -1,10 +1,14 @@
 import { useEffect, useRef } from 'react'
 import { NavLink, useNavigate, useParams } from 'react-router-dom'
 import style from './chatboard.scss'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { removeChat } from '../../../app/features/Chat/chatReducer'
+import { addSnapshotOnChatImage } from '../../../app/features/Chat/middleware/middleware'
+import avatarsRedusers from '../../../app/features/avatarsRedusers'
 
 export default ({ chatItem, roomId }) => {
+    const chatsAvatar = useSelector((state) => state.avatars)
+    console.log(chatsAvatar, 'chat avatars')
     const contextMenuRef = useRef(null)
     const { chatID } = useParams()
     const navigate = useNavigate()
@@ -49,6 +53,9 @@ export default ({ chatItem, roomId }) => {
         dispatch(removeChat({ chatID }))
         chatID && chatID === roomId && navigate('/messanger')
     }
+    useEffect(() => {
+        dispatch(addSnapshotOnChatImage(chatItem.user))
+    }, [])
 
     return (
         <NavLink
@@ -76,7 +83,11 @@ export default ({ chatItem, roomId }) => {
                 </svg>
             </button>
             <div className="chat_photo">
-                <img src={chatItem.img} alt="" className="chat_img" />
+                <img
+                    src={chatsAvatar[chatItem.user]}
+                    alt=""
+                    className="chat_img"
+                />
                 <div className={`status_light status_${chatItem.status}`}></div>
             </div>
             <div className="chat_info">

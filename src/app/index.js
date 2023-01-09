@@ -30,6 +30,7 @@ import {
 import storage from 'redux-persist/lib/storage'
 import todoReducer from './features/Todo/todoReducer'
 import authReducer from './features/Auth/authReducer'
+import avatarsRedusers from './features/avatarsRedusers'
 
 const persistConfig = {
     key: 'root',
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
     chatList: chatReducer,
     todos: todoReducer,
     auth: authReducer,
+    avatars: avatarsRedusers,
 })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

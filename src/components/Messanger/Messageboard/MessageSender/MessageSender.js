@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useChatListSelector } from '../../../../app/features/Chat/chatListSelectors'
 import { useProfilerSelector } from '../../../../app/features/Profiler/profilerSelectors'
-import { sendMessageWithThunk } from '../../../../app/thunks/thunks'
 import { sendMessageWithFirebase } from '../../../../app/features/Chat/middleware/middleware'
 
 const MessageSender = () => {
@@ -16,34 +15,6 @@ const MessageSender = () => {
     const dispatch = useDispatch()
     const { chatID } = useParams()
     const navigate = useNavigate()
-
-    // function sendMessage(user, text) {
-    //     if (!chatList[chatID]) {
-    //         navigate('/messanger')
-    //         return ''
-    //     }
-    //     if (text.length) {
-    //         const message = {
-    //             userId: user,
-    //             image:
-    //                 currentUser.uid === user
-    //                     ? '/img/AvatarImage.png'
-    //                     : '/img/bot.png',
-    //             name:
-    //                 currentUser.uid === user
-    //                     ? currentUser.name
-    //                     : chatList[chatID].chatName,
-    //             body: text.toString(),
-    //             time: new Date().toLocaleTimeString('ru', {
-    //                 hour: '2-digit',
-    //                 minute: '2-digit',
-    //             }),
-    //         }
-    //         dispatch(sendMessageWithThunk(chatID, message))
-    //
-    //         if (user === currentUser.uid) setValue('')
-    //     }
-    // }
 
     const sendMessage = async () => {
         if (value.length) {

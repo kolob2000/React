@@ -6,25 +6,43 @@ import {
     query,
     where,
     getDocs,
+    getDoc,
     onSnapshot,
     orderBy,
 } from 'firebase/firestore'
 import { db } from '../../../../firebase'
 import { useProfilerSelector } from '../../Profiler/profilerSelectors'
 import { addMessage, initChats, initMessages } from '../chatReducer'
+import { storage } from '../../../../firebase'
+import { ref, getDownloadURL } from 'firebase/storage'
+import { useRef } from 'react'
+import { addAvatarImage } from '../../avatarsRedusers'
 
 const getUserIdByEmail = async (email) => {
     const q = query(collection(db, 'users'), where('email', '==', email))
-    let id = null
+    let userID = null
+    let userImg = null
     const qSnapshots = await getDocs(q)
     qSnapshots.forEach((item) => {
-        id = item.id
+        userID = item.id
+        userImg = item.data().img
     })
-    return id
+    return { userID, userImg }
 }
+export const addSnapshotOnChatImage = (uid) => (dispatch) => {
+    const userRef = doc(db, `users/${uid}`)
+    onSnapshot(doc(db, 'users', uid), (doc) => {
+        if (doc.data()) {
+            const { uid, img } = doc.data()
 
+            dispatch(addAvatarImage({ uid, img }))
+        } else {
+            console.log('undefined')
+        }
+    })
+}
 export const addChatWithFirebase = async (profiler, chatName, chatEmail) => {
-    const userID = await getUserIdByEmail(chatEmail)
+    const { userID, userImg } = await getUserIdByEmail(chatEmail)
     const chatsColRef = collection(db, 'chats')
     const newChat = await addDoc(chatsColRef, {
         users: [profiler.uid, userID],
@@ -36,7 +54,7 @@ export const addChatWithFirebase = async (profiler, chatName, chatEmail) => {
         chatName,
         email: chatEmail,
         user: userID,
-        img: profiler.img,
+        img: userImg,
     })
     await setDoc(secondUserChatRef, {
         id: newChat.id,
@@ -48,12 +66,15 @@ export const addChatWithFirebase = async (profiler, chatName, chatEmail) => {
 }
 
 export const onChatListInit = (uid) => async (dispatch) => {
-    onSnapshot(collection(db, 'users', uid, 'chats'), async () => {
-        const q = query(collection(db, 'users', uid, 'chats'))
+    const chatsRef = collection(db, 'users', uid, 'chats')
+    const usersId = []
+    onSnapshot(chatsRef, async () => {
+        const q = query(chatsRef)
         const chats = await getDocs(q)
         const ch = {}
-        chats.forEach((doc) => {
-            ch[doc.id] = doc.data()
+        chats.forEach((observer) => {
+            ch[observer.id] = observer.data()
+            usersId.push(observer.id)
         })
         dispatch(initChats(ch))
     })
@@ -82,6 +103,6 @@ export const sendMessageWithFirebase = async (profiler, chatID, value) => {
         }),
         created_at: Date.now(),
         name: profiler.name,
-        image: '/img/profile_blue.png',
+        image: profiler.img,
     })
 }
